@@ -21,6 +21,11 @@ def update_time():
     clock_label.configure(text=current_time)
     root.after(1000,update_time)
 def create_alarm():
+    dialog1=CTkInputDialog(text="Time of the Alarm:",title="Add Alarm")
+    global alarmtime
+    alarmtime = dialog1.get_input()
+    submit()
+'''    
     root2=ctk.CTk()
     root2.title("SMART ALARM CLOCK")
     root2.geometry("400x200")
@@ -50,17 +55,10 @@ def create_alarm():
     lbl3=CTkLabel(frame2,text="")
     lbl3.grid(row=4,column=0)
     root2.mainloop()
-
-def msg():
-    global entry1,lbl3
-    alarmtime=entry1.get()
-    lbl3.configure(text="Time to get up....")
-    messagebox.showinfo("Time",f"ALarm time-{alarmtime}")
+'''
 
 def submit():
-    global entry1,entry2,lbl3
-    alarmtime=entry1.get()
-    msg()
+    global alarmtime
     ctime=time.strftime("%H:%M")
     print(f"ALarm time-{alarmtime}")
     while alarmtime!=ctime:
@@ -69,8 +67,7 @@ def submit():
     if alarmtime==ctime:
         print("Playing sounds..")
         winsound.PlaySound("*",winsound.SND_ASYNC)
-        lbl3.configure(text="Playing Sounds...")
-        messagebox.showinfo("Message",f"Msg-{entry2.get()}")    
+        messagebox.showinfo("Time to wake up")    
 #main
 
 root=ctk.CTk()
