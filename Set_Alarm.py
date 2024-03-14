@@ -7,6 +7,7 @@ from customtkinter import *
 import numpy
 import time
 import winsound
+import threading
 
 def create():
     global clock_label
@@ -24,7 +25,8 @@ def create_alarm():
     dialog1=CTkInputDialog(text="Time of the Alarm:",title="Add Alarm")
     global alarmtime
     alarmtime = dialog1.get_input()
-    submit()
+    thread1=threading.Thread(target=submit)
+    thread1.start()
 '''    
     root2=ctk.CTk()
     root2.title("SMART ALARM CLOCK")
@@ -67,8 +69,7 @@ def submit():
     if alarmtime==ctime:
         print("Playing sounds..")
         winsound.PlaySound("*",winsound.SND_ASYNC)
-        messagebox.showinfo("Time to wake up")    
-#main
+        messagebox.showinfo(message="Time to wake up",title="Alarm")    
 
 root=ctk.CTk()
 root.title("CLOCK")
@@ -78,6 +79,6 @@ frame.pack(pady=20,padx=20,fill="both",expand=True)
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
-
+lock=threading.Lock()
 create()
 root.mainloop()
